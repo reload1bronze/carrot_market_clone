@@ -18,17 +18,36 @@ class MyApp extends StatelessWidget {
   }
 }
 
+class SplashScreen extends StatelessWidget {
+  const SplashScreen({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return const Scaffold(
+      body: Center(
+        child: CircularProgressIndicator(
+          color: Colors.deepOrange,
+        ),
+      ),
+    );
+  }
+}
+
 class MyHomePage extends StatelessWidget {
   const MyHomePage({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('바니바니'),
       ),
-      body: Container(
-        color: Colors.amber,
+      body: Center(
+        child: Column(
+          children: [
+            Image.asset('assets/images/carrot.jpg'),
+            Container(height: 200, color: Colors.red),
+          ],
+        ),
       ),
     );
   }
