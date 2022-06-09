@@ -16,22 +16,30 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.deepOrange,
       ),
       debugShowCheckedModeBanner: false,
-      home: FutureBuilder<Object>(
-          future: Future.delayed(
-              const Duration(
-                seconds: 1,
-              ),
-              () => 100),
-          builder: (context, snapshot) {
-            if (snapshot.hasError) {
-              return const Text('Error occur');
-            }
-            if (snapshot.hasData) {
-              return const MyHomePage();
-            }
-            return const SplashScreen();
-          }),
+      home: FutureBuilder(
+        future: Future.delayed(
+            const Duration(
+              seconds: 1,
+            ),
+            () => 100),
+        builder: (context, snapshot) {
+          return AnimatedSwitcher(
+            duration: const Duration(milliseconds: 300),
+            child: _splashLoadingWidget(snapshot),
+          );
+        },
+      ),
     );
+  }
+
+  StatelessWidget _splashLoadingWidget(AsyncSnapshot<Object?> snapshot) {
+    if (snapshot.hasError) {
+      return const Text('Error occur');
+    }
+    if (snapshot.hasData) {
+      return const MyHomePage();
+    }
+    return const SplashScreen();
   }
 }
 
