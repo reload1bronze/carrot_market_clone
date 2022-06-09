@@ -2,8 +2,12 @@ import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 
 import 'screens/splash_screen.dart';
+import 'utils/logger.dart';
 
-void main() => runApp(const MyApp());
+void main() {
+  logger.v('앱 실행');
+  runApp(const MyApp());
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
