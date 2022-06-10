@@ -1,0 +1,23 @@
+import 'package:extended_image/extended_image.dart';
+import 'package:flutter/material.dart';
+
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('수정'),
+      ),
+      body: Center(
+        child: Column(
+          children: [
+            ExtendedImage.asset('assets/images/carrot.jpg'),
+            Container(height: 200, color: Colors.red),
+          ],
+        ),
+      ),
+    );
+  }
+}
