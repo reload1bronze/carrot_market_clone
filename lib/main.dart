@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'screens/auth_screen.dart';
 import 'screens/home_screen.dart';
+import 'screens/intro_screen.dart';
 import 'screens/splash_screen.dart';
 import 'utils/logger.dart';
 
@@ -49,7 +50,7 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: '/',
+      initialRoute: '/signin',
       routes: {
         '/': (context) => const HomeScreen(),
         '/signin': (context) => const AuthScreen(),
