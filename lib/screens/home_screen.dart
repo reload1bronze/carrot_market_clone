@@ -8,13 +8,12 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('수정'),
+        title: const Text('Home Screen'),
       ),
       body: Center(
         child: Column(
           children: [
             ExtendedImage.asset('assets/images/carrot.jpg'),
-            Container(height: 200, color: Colors.red),
           ],
         ),
       ),

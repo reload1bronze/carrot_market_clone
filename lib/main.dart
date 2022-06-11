@@ -60,8 +60,8 @@ class MyHomePage extends StatelessWidget {
       ),
       initialRoute: '/signin',
       routes: {
-        '/': (context) => const HomeScreen(),
         '/signin': (context) => const AuthScreen(),
+        '/': (context) => const HomeScreen(),
       },
     );
   }

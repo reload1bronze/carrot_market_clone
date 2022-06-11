@@ -20,7 +20,14 @@ class IntroScreen extends StatelessWidget {
                     color: Theme.of(context).colorScheme.primary,
                   ),
             ),
-            ExtendedImage.asset('assets/images/map.jpg'),
+            Stack(
+              children: [
+                ExtendedImage.asset('assets/images/map.jpg'),
+                Positioned(
+                  child: Icon(Icons.abc),
+                ),
+              ],
+            ),
             Text(
               '우리 동네 중고 직거래 당근마켓',
               style: TextStyle(
