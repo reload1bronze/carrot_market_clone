@@ -16,11 +16,9 @@ class IntroScreen extends StatelessWidget {
           children: [
             Text(
               '당근마켓',
-              style: TextStyle(
-                fontSize: 30,
-                color: Theme.of(context).primaryColor,
-                fontWeight: FontWeight.bold,
-              ),
+              style: Theme.of(context).textTheme.headline3!.copyWith(
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
             ),
             ExtendedImage.asset('assets/images/map.jpg'),
             Text(
@@ -43,13 +41,13 @@ class IntroScreen extends StatelessWidget {
                 TextButton(
                   child: Text(
                     '내 동네 설정하고 시작하기',
-                    style: TextStyle(color: Colors.white),
+                    style: Theme.of(context).textTheme.button,
                   ),
                   onPressed: () {
                     logger.d('버튼클릭');
                   },
                   style: TextButton.styleFrom(
-                    backgroundColor: Colors.blue,
+                    backgroundColor: Theme.of(context).primaryColor,
                   ),
                 ),
               ],

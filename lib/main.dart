@@ -50,7 +50,14 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(primarySwatch: Colors.deepOrange),
+      theme: ThemeData(
+        primarySwatch: Colors.deepOrange,
+        fontFamily: 'DoHyeon',
+        textTheme: TextTheme(
+          headline3: TextStyle(fontFamily: 'DoHyeon'),
+          button: TextStyle(color: Colors.white),
+        ),
+      ),
       initialRoute: '/signin',
       routes: {
         '/': (context) => const HomeScreen(),
