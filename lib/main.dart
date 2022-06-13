@@ -6,6 +6,7 @@ import 'screens/auth_screen.dart';
 import 'screens/home_screen.dart';
 import 'screens/intro_screen.dart';
 import 'screens/splash_screen.dart';
+import 'screens/test_screen.dart';
 import 'utils/logger.dart';
 
 void main() {
@@ -58,9 +59,9 @@ class MyHomePage extends StatelessWidget {
           button: TextStyle(color: Colors.white),
         ),
       ),
-      initialRoute: '/signin',
+      initialRoute: '/auth',
       routes: {
-        '/signin': (context) => const AuthScreen(),
+        '/auth': (context) => const AuthScreen(),
         '/': (context) => const HomeScreen(),
       },
     );
