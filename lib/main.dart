@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import 'providers/user_provider.dart';
 import 'screens/start_screen.dart';
 import 'screens/home_screen.dart';
 import 'screens/splash_screen.dart';
@@ -46,36 +48,41 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.deepOrange,
-        fontFamily: 'DoHyeon',
-        hintColor: Colors.grey[400],
-        textTheme: TextTheme(
-          headline3: TextStyle(fontFamily: 'DoHyeon'),
-          button: TextStyle(color: Colors.white),
-        ),
-        textButtonTheme: TextButtonThemeData(
-          style: TextButton.styleFrom(
-            backgroundColor: Colors.deepOrange,
-            primary: Colors.white,
-            minimumSize: Size(42, 42),
-          ),
-        ),
-        appBarTheme: AppBarTheme(
-          elevation: 2,
-          backgroundColor: Colors.white,
-          titleTextStyle: TextStyle(
-            color: Colors.black87,
-          ),
-        ),
-      ),
-      initialRoute: '/auth',
-      routes: {
-        '/auth': (context) => StartScreen(),
-        '/': (context) => const HomeScreen(),
+    return ChangeNotifierProvider<UserProvider>(
+      create: (BuildContext context) {
+        return UserProvider();
       },
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          primarySwatch: Colors.deepOrange,
+          fontFamily: 'DoHyeon',
+          hintColor: Colors.grey[400],
+          textTheme: TextTheme(
+            headline3: TextStyle(fontFamily: 'DoHyeon'),
+            button: TextStyle(color: Colors.white),
+          ),
+          textButtonTheme: TextButtonThemeData(
+            style: TextButton.styleFrom(
+              backgroundColor: Colors.deepOrange,
+              primary: Colors.white,
+              minimumSize: Size(42, 42),
+            ),
+          ),
+          appBarTheme: AppBarTheme(
+            elevation: 2,
+            backgroundColor: Colors.white,
+            titleTextStyle: TextStyle(
+              color: Colors.black87,
+            ),
+          ),
+        ),
+        initialRoute: '/auth',
+        routes: {
+          '/auth': (context) => StartScreen(),
+          '/': (context) => const HomeScreen(),
+        },
+      ),
     );
   }
 }
