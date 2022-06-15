@@ -3,9 +3,14 @@ import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
 
 import '../constants/common_size.dart';
 
-class SigninScreen extends StatelessWidget {
+class SigninScreen extends StatefulWidget {
   SigninScreen({Key? key}) : super(key: key);
 
+  @override
+  State<SigninScreen> createState() => _SigninScreenState();
+}
+
+class _SigninScreenState extends State<SigninScreen> {
   final inputBorder = OutlineInputBorder(
     borderSide: BorderSide(color: Colors.grey),
   );
@@ -16,6 +21,8 @@ class SigninScreen extends StatelessWidget {
   TextEditingController _codeController = TextEditingController();
 
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  VerificationStatus _verificationStatus = VerificationStatus.none;
 
   @override
   Widget build(BuildContext context) {
@@ -80,29 +87,44 @@ class SigninScreen extends StatelessWidget {
                   TextButton(
                     onPressed: () {
                       bool passed = _formKey.currentState!.validate();
+                      if (passed) {
+                        setState(() {
+                          _verificationStatus = VerificationStatus.codeSent;
+                        });
+                      }
                     },
                     child: Text('인증문자 발송'),
                   ),
                   SizedBox(
                     height: k_padding,
                   ),
-                  TextFormField(
-                    controller: _codeController,
-                    keyboardType: TextInputType.number,
-                    inputFormatters: [
-                      MaskedInputFormatter('000000'),
-                    ],
-                    decoration: InputDecoration(
-                      border: inputBorder,
-                      focusedBorder: inputBorder,
+                  AnimatedOpacity(
+                    duration: Duration(milliseconds: 300),
+                    curve: Curves.easeInOut,
+                    opacity: getVerificationOpacity(_verificationStatus),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        TextFormField(
+                          controller: _codeController,
+                          keyboardType: TextInputType.number,
+                          inputFormatters: [
+                            MaskedInputFormatter('000000'),
+                          ],
+                          decoration: InputDecoration(
+                            border: inputBorder,
+                            focusedBorder: inputBorder,
+                          ),
+                        ),
+                        SizedBox(
+                          height: k_padding_s,
+                        ),
+                        TextButton(
+                          onPressed: () {},
+                          child: Text('확인'),
+                        ),
+                      ],
                     ),
-                  ),
-                  SizedBox(
-                    height: k_padding_s,
-                  ),
-                  TextButton(
-                    onPressed: () {},
-                    child: Text('확인'),
                   ),
                 ],
               ),
@@ -112,4 +134,17 @@ class SigninScreen extends StatelessWidget {
       }),
     );
   }
+
+  double getVerificationOpacity(VerificationStatus status) {
+    switch (status) {
+      case VerificationStatus.none:
+        return 0;
+      case VerificationStatus.codeSent:
+      case VerificationStatus.verifying:
+      case VerificationStatus.verificationDone:
+        return 1;
+    }
+  }
 }
+
+enum VerificationStatus { none, codeSent, verifying, verificationDone }
