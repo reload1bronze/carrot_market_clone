@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
 
 import '../constants/common_size.dart';
 
@@ -8,6 +9,9 @@ class SigninScreen extends StatelessWidget {
   final inputBorder = OutlineInputBorder(
     borderSide: BorderSide(color: Colors.grey),
   );
+
+  TextEditingController _textEditingController =
+      TextEditingController(text: '010');
 
   @override
   Widget build(BuildContext context) {
@@ -46,6 +50,11 @@ class SigninScreen extends StatelessWidget {
                   height: k_padding,
                 ),
                 TextFormField(
+                  controller: _textEditingController,
+                  keyboardType: TextInputType.phone,
+                  inputFormatters: [
+                    MaskedInputFormatter('000 0000 0000'),
+                  ],
                   decoration: InputDecoration(
                     border: inputBorder,
                     focusedBorder: inputBorder,
