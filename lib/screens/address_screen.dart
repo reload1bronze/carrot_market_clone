@@ -6,8 +6,9 @@ class AddressScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      minimum: const EdgeInsets.all(16.0),
+      minimum: const EdgeInsets.only(left: 16.0, right: 16.0),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           TextFormField(
             decoration: InputDecoration(
@@ -26,35 +27,34 @@ class AddressScreen extends StatelessWidget {
                   BoxConstraints(minWidth: 24, minHeight: 24),
             ),
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              TextButton.icon(
-                onPressed: () {},
-                icon: Icon(
-                  Icons.location_pin,
-                  color: Colors.white,
-                  size: 20.0,
-                ),
-                label: Text(
-                  '현재 위치 찾기',
-                  style: Theme.of(context).textTheme.button,
-                ),
-                style: TextButton.styleFrom(
-                    backgroundColor: Theme.of(context).primaryColor),
-              ),
-            ],
+          TextButton.icon(
+            onPressed: () {},
+            icon: Icon(
+              Icons.location_pin,
+              color: Colors.white,
+              size: 20.0,
+            ),
+            label: Text(
+              '현재 위치 찾기',
+              style: Theme.of(context).textTheme.button,
+            ),
+            style: TextButton.styleFrom(
+              minimumSize: Size(10, 36),
+              backgroundColor: Theme.of(context).primaryColor,
+            ),
           ),
           Expanded(
             child: ListView.builder(
+              padding: const EdgeInsets.symmetric(
+                vertical: 16.0,
+              ),
               itemBuilder: (context, index) {
                 return ListTile(
-                  leading: Icon(Icons.check_box),
                   title: Text('address $index'),
                   subtitle: Text('subtitle $index'),
                 );
               },
-              itemCount: 10,
+              itemCount: 16,
             ),
           ),
         ],
