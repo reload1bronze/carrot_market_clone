@@ -56,6 +56,13 @@ class MyHomePage extends StatelessWidget {
           headline3: TextStyle(fontFamily: 'DoHyeon'),
           button: TextStyle(color: Colors.white),
         ),
+        textButtonTheme: TextButtonThemeData(
+          style: TextButton.styleFrom(
+            backgroundColor: Colors.deepOrange,
+            primary: Colors.white,
+            minimumSize: Size(42, 42),
+          ),
+        ),
         appBarTheme: AppBarTheme(
           elevation: 2,
           backgroundColor: Colors.white,
