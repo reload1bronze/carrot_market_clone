@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class AddressScreen extends StatelessWidget {
@@ -45,6 +44,18 @@ class AddressScreen extends StatelessWidget {
                     backgroundColor: Theme.of(context).primaryColor),
               ),
             ],
+          ),
+          Expanded(
+            child: ListView.builder(
+              itemBuilder: (context, index) {
+                return ListTile(
+                  leading: Icon(Icons.check_box),
+                  title: Text('address $index'),
+                  subtitle: Text('subtitle $index'),
+                );
+              },
+              itemCount: 10,
+            ),
           ),
         ],
       ),
