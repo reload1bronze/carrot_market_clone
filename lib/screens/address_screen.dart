@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class AddressScreen extends StatelessWidget {
@@ -25,6 +26,25 @@ class AddressScreen extends StatelessWidget {
               prefixIconConstraints:
                   BoxConstraints(minWidth: 24, minHeight: 24),
             ),
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              TextButton.icon(
+                onPressed: () {},
+                icon: Icon(
+                  Icons.location_pin,
+                  color: Colors.white,
+                  size: 20.0,
+                ),
+                label: Text(
+                  '현재 위치 찾기',
+                  style: Theme.of(context).textTheme.button,
+                ),
+                style: TextButton.styleFrom(
+                    backgroundColor: Theme.of(context).primaryColor),
+              ),
+            ],
           ),
         ],
       ),
