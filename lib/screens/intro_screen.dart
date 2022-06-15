@@ -53,9 +53,7 @@ class IntroScreen extends StatelessWidget {
               Text(
                 '''당근마켓은 동네 직거래 마켓이에요.
                 내 동네를 설정하고 시작해보세요.''',
-                style: TextStyle(
-                  fontSize: 16,
-                ),
+                style: Theme.of(context).textTheme.headline6,
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
