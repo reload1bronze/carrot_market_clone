@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'intro_screen.dart';
+import 'address_screen.dart';
 
 class AuthScreen extends StatelessWidget {
   AuthScreen({Key? key}) : super(key: key);
@@ -15,9 +16,7 @@ class AuthScreen extends StatelessWidget {
         physics: NeverScrollableScrollPhysics(),
         children: [
           IntroScreen(_pageController),
-          Container(
-            color: Colors.accents[2],
-          ),
+          AddressScreen(),
           Container(
             color: Colors.accents[4],
           ),

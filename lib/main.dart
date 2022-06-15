@@ -50,6 +50,7 @@ class MyHomePage extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.deepOrange,
         fontFamily: 'DoHyeon',
+        hintColor: Colors.grey[400],
         textTheme: TextTheme(
           headline3: TextStyle(fontFamily: 'DoHyeon'),
           button: TextStyle(color: Colors.white),
