@@ -75,11 +75,14 @@ class MyHomePage extends StatelessWidget {
             titleTextStyle: TextStyle(
               color: Colors.black87,
             ),
+            actionsIconTheme: IconThemeData(
+              color: Colors.black87,
+            ),
           ),
         ),
-        initialRoute: '/auth',
+        initialRoute: '/start',
         routes: {
-          '/auth': (context) => StartScreen(),
+          '/start': (context) => StartScreen(),
           '/': (context) => const HomeScreen(),
         },
       ),

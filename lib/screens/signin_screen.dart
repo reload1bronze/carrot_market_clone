@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
+import 'package:provider/provider.dart';
 
 import '../constants/common_size.dart';
+import '../providers/user_provider.dart';
 
 class SigninScreen extends StatefulWidget {
   SigninScreen({Key? key}) : super(key: key);
@@ -162,6 +164,7 @@ class _SigninScreenState extends State<SigninScreen> {
     setState(() {
       _verificationStatus = VerificationStatus.verificationDone;
     });
+    context.read<UserProvider>().setUserAuth(true);
   }
 }
 
