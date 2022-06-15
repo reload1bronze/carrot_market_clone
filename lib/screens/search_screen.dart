@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 
-class AddressScreen extends StatelessWidget {
-  const AddressScreen({Key? key}) : super(key: key);
+import 'search_service.dart';
+
+class SearchScreen extends StatelessWidget {
+  SearchScreen({Key? key}) : super(key: key);
+
+  TextEditingController _searchController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -11,6 +15,7 @@ class AddressScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           TextFormField(
+            controller: _searchController,
             decoration: InputDecoration(
               prefixIcon: Icon(
                 Icons.search,
@@ -28,7 +33,12 @@ class AddressScreen extends StatelessWidget {
             ),
           ),
           TextButton.icon(
-            onPressed: () {},
+            onPressed: () {
+              final text = _searchController.text;
+              if (text.isNotEmpty) {
+                SearchService().searchAddressByStr(text);
+              }
+            },
             icon: Icon(
               Icons.location_pin,
               color: Colors.white,

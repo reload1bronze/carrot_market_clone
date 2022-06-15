@@ -2,7 +2,7 @@ import 'package:carrot_market_clone/screens/signin_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'intro_screen.dart';
-import 'address_screen.dart';
+import 'search_screen.dart';
 
 class StartScreen extends StatelessWidget {
   StartScreen({Key? key}) : super(key: key);
@@ -17,7 +17,7 @@ class StartScreen extends StatelessWidget {
         // physics: NeverScrollableScrollPhysics(),
         children: [
           IntroScreen(_pageController),
-          AddressScreen(),
+          SearchScreen(),
           SigninScreen(),
         ],
       ),
