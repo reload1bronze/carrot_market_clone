@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'screens/auth_screen.dart';
+import 'screens/start_screen.dart';
 import 'screens/home_screen.dart';
 import 'screens/splash_screen.dart';
 import 'utils/logger.dart';
@@ -56,10 +56,17 @@ class MyHomePage extends StatelessWidget {
           headline3: TextStyle(fontFamily: 'DoHyeon'),
           button: TextStyle(color: Colors.white),
         ),
+        appBarTheme: AppBarTheme(
+          elevation: 2,
+          backgroundColor: Colors.white,
+          titleTextStyle: TextStyle(
+            color: Colors.black87,
+          ),
+        ),
       ),
       initialRoute: '/auth',
       routes: {
-        '/auth': (context) => AuthScreen(),
+        '/auth': (context) => StartScreen(),
         '/': (context) => const HomeScreen(),
       },
     );

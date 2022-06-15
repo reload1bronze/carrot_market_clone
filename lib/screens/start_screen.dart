@@ -1,10 +1,11 @@
+import 'package:carrot_market_clone/screens/signin_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'intro_screen.dart';
 import 'address_screen.dart';
 
-class AuthScreen extends StatelessWidget {
-  AuthScreen({Key? key}) : super(key: key);
+class StartScreen extends StatelessWidget {
+  StartScreen({Key? key}) : super(key: key);
 
   PageController _pageController = PageController();
 
@@ -13,13 +14,11 @@ class AuthScreen extends StatelessWidget {
     return Scaffold(
       body: PageView(
         controller: _pageController,
-        physics: NeverScrollableScrollPhysics(),
+        // physics: NeverScrollableScrollPhysics(),
         children: [
           IntroScreen(_pageController),
           AddressScreen(),
-          Container(
-            color: Colors.accents[4],
-          ),
+          SigninScreen(),
         ],
       ),
     );
