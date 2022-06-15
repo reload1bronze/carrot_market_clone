@@ -1,12 +1,8 @@
-import 'package:beamer/beamer.dart';
-import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 
 import 'screens/auth_screen.dart';
 import 'screens/home_screen.dart';
-import 'screens/intro_screen.dart';
 import 'screens/splash_screen.dart';
-import 'screens/test_screen.dart';
 import 'utils/logger.dart';
 
 void main() {
@@ -61,7 +57,7 @@ class MyHomePage extends StatelessWidget {
       ),
       initialRoute: '/auth',
       routes: {
-        '/auth': (context) => const AuthScreen(),
+        '/auth': (context) => AuthScreen(),
         '/': (context) => const HomeScreen(),
       },
     );

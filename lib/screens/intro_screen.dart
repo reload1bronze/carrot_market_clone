@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import '../utils/logger.dart';
 
 class IntroScreen extends StatelessWidget {
-  const IntroScreen({Key? key}) : super(key: key);
+  PageController controller;
+  IntroScreen(this.controller, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +13,7 @@ class IntroScreen extends StatelessWidget {
       Size size = MediaQuery.of(context).size;
 
       final imgSize = size.width - 32;
-      final sizeOfPosImg = (size.width - 32) * 0.1;
+      final sizeOfPosImg = imgSize * 0.1;
 
       return SafeArea(
         child: Padding(
@@ -65,6 +66,11 @@ class IntroScreen extends StatelessWidget {
                       style: Theme.of(context).textTheme.button,
                     ),
                     onPressed: () {
+                      controller.animateToPage(
+                        1,
+                        duration: Duration(milliseconds: 500),
+                        curve: Curves.ease,
+                      );
                       logger.d('버튼클릭');
                     },
                     style: TextButton.styleFrom(
