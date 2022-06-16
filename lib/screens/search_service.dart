@@ -1,6 +1,7 @@
 import 'package:carrot_market_clone/constants/keys.dart';
 import 'package:dio/dio.dart';
 
+import '../data/address_model.dart';
 import '../utils/logger.dart';
 
 class SearchService {
@@ -19,7 +20,10 @@ class SearchService {
         .catchError((e) {
       logger.e(e.message);
     });
-    
-    logger.d(response);
+
+    logger.v(response);
+    AddressModel addressModel =
+        AddressModel.fromJson(response.data['response']);
+    logger.v(addressModel);
   }
 }
