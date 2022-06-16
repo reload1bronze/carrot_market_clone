@@ -5,7 +5,7 @@ import '../data/address_model.dart';
 import '../utils/logger.dart';
 
 class SearchService {
-  void searchAddressByStr(String text) async {
+  Future<AddressModel> searchAddressByStr(String text) async {
     final formData = {
       'key': VWORLD_KEY,
       'request': 'search',
@@ -25,5 +25,6 @@ class SearchService {
     AddressModel addressModel =
         AddressModel.fromJson(response.data['response']);
     logger.v(addressModel);
+    return addressModel;
   }
 }

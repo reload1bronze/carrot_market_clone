@@ -1,11 +1,20 @@
 import 'package:flutter/material.dart';
 
+import '../data/address_model.dart';
+import '../utils/logger.dart';
 import 'search_service.dart';
 
-class SearchScreen extends StatelessWidget {
+class SearchScreen extends StatefulWidget {
   SearchScreen({Key? key}) : super(key: key);
 
+  @override
+  State<SearchScreen> createState() => _SearchScreenState();
+}
+
+class _SearchScreenState extends State<SearchScreen> {
   TextEditingController _searchController = TextEditingController();
+
+  AddressModel? _addressModel;
 
   @override
   Widget build(BuildContext context) {
@@ -31,14 +40,14 @@ class SearchScreen extends StatelessWidget {
               prefixIconConstraints:
                   BoxConstraints(minWidth: 24, minHeight: 24),
             ),
+            onFieldSubmitted: (text) async {
+              _addressModel = await SearchService().searchAddressByStr(text);
+              logger.d(_addressModel);
+              setState(() {});
+            },
           ),
           TextButton.icon(
-            onPressed: () {
-              final text = _searchController.text;
-              if (text.isNotEmpty) {
-                SearchService().searchAddressByStr(text);
-              }
-            },
+            onPressed: () {},
             icon: Icon(
               Icons.location_pin,
               color: Colors.white,
@@ -59,12 +68,23 @@ class SearchScreen extends StatelessWidget {
                 vertical: 16.0,
               ),
               itemBuilder: (context, index) {
+                if (_addressModel == null ||
+                    _addressModel!.result == null ||
+                    _addressModel!.result!.items == null ||
+                    _addressModel!.result!.items![index].address == null) {
+                  return Container(
+                    child: Text('없어'),
+                  );
+                }
                 return ListTile(
-                  title: Text('address $index'),
-                  subtitle: Text('subtitle $index'),
-                );
+                    title: Text(
+                        _addressModel!.result!.items![index].address!.road ??
+                            ''),
+                    subtitle: Text(
+                        _addressModel!.result!.items![index].address!.parcel ??
+                            ''));
               },
-              itemCount: 16,
+              itemCount: _addressModel?.result?.items?.length ?? 0,
             ),
           ),
         ],
