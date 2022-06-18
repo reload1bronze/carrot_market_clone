@@ -73,6 +73,8 @@ class _SearchScreenState extends State<SearchScreen> {
 
               _locationData = await location.getLocation();
               logger.d(_locationData);
+              SearchService().findAddressByCoords(
+                  lat: _locationData.latitude, long: _locationData.longitude);
             },
             icon: Icon(
               Icons.location_pin,
