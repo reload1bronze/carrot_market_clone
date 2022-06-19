@@ -2,6 +2,7 @@ import 'package:carrot_market_clone/constants/keys.dart';
 import 'package:dio/dio.dart';
 
 import '../data/address_model.dart';
+import '../data/address_model2.dart';
 import '../utils/logger.dart';
 
 class SearchService {
@@ -28,23 +29,51 @@ class SearchService {
     return addressModel;
   }
 
-  Future<void> findAddressByCoords(
+  Future<List<AddressModel2>> findAddressByCoords(
       {required double? lat, required double? long}) async {
-    final Map<String, dynamic> formData = {
+    final List<Map<String, dynamic>> formDatas = <Map<String, dynamic>>[];
+
+    formDatas.add({
+      'key': VWORLD_KEY,
+      'service': 'address',
+      'request': 'GetAddress',
+      'type': 'BOTH',
+      'point': '${long! - 0.01},$lat',
+    });
+
+    formDatas.add({
+      'key': VWORLD_KEY,
+      'service': 'address',
+      'request': 'GetAddress',
+      'type': 'BOTH',
+      'point': '$long,${lat! - 0.01}',
+    });
+
+    formDatas.add({
       'key': VWORLD_KEY,
       'service': 'address',
       'request': 'GetAddress',
       'type': 'BOTH',
       'point': '$long,$lat',
-    };
-
-    final response = await Dio()
-        .get('http://api.vworld.kr/req/address', queryParameters: formData)
-        .catchError((e) {
-      logger.e(e.message);
     });
 
-    logger.d(response);
-    return;
+    List<AddressModel2> addresses = [];
+
+    for (Map<String, dynamic> formData in formDatas) {
+      final response = await Dio()
+          .get('http://api.vworld.kr/req/address', queryParameters: formData)
+          .catchError((e) {
+        logger.e(e.message);
+      });
+
+      AddressModel2 addressModel =
+          AddressModel2.fromJson(response.data['response']);
+
+      if (response.data['status'] == 'OK') {
+        addresses.add(addressModel);
+      }
+    }
+
+    return addresses;
   }
 }
