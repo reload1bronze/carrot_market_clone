@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:location/location.dart';
 
 import '../data/address_model.dart';
+import '../data/address_model2.dart';
 import '../utils/logger.dart';
 import 'search_service.dart';
 
@@ -16,6 +17,8 @@ class _SearchScreenState extends State<SearchScreen> {
   TextEditingController _searchController = TextEditingController();
 
   AddressModel? _addressModel;
+  List<AddressModel2> _addressModel2 = [];
+  bool _isGettingLocation = false;
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +52,11 @@ class _SearchScreenState extends State<SearchScreen> {
           ),
           TextButton.icon(
             onPressed: () async {
+              _addressModel = null;
+              setState(() {
+                _isGettingLocation = true;
+              });
+
               Location location = new Location();
 
               bool _serviceEnabled;
@@ -73,16 +81,26 @@ class _SearchScreenState extends State<SearchScreen> {
 
               _locationData = await location.getLocation();
               logger.d(_locationData);
-              SearchService().findAddressByCoords(
-                  lat: _locationData.latitude, long: _locationData.longitude);
+              List<AddressModel2> addresses = await SearchService()
+                  .findAddressByCoords(
+                      lat: _locationData.latitude,
+                      long: _locationData.longitude);
+
+              _addressModel2.addAll(addresses);
+
+              setState(() {
+                _isGettingLocation = false;
+              });
             },
-            icon: Icon(
-              Icons.location_pin,
-              color: Colors.white,
-              size: 20.0,
-            ),
+            icon: _isGettingLocation
+                ? CircularProgressIndicator()
+                : Icon(
+                    Icons.location_pin,
+                    color: Colors.white,
+                    size: 20.0,
+                  ),
             label: Text(
-              '현재 위치 찾기',
+              _isGettingLocation ? '위치 찾는 중...' : '현재 위치 찾기',
               style: Theme.of(context).textTheme.button,
             ),
             style: TextButton.styleFrom(
