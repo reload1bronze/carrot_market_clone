@@ -93,7 +93,7 @@ class _SearchScreenState extends State<SearchScreen> {
               });
             },
             icon: _isGettingLocation
-                ? CircularProgressIndicator()
+                ? CircularProgressIndicator(color: Colors.white)
                 : Icon(
                     Icons.location_pin,
                     color: Colors.white,

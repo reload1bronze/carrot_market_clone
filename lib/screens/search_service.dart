@@ -37,7 +37,7 @@ class SearchService {
       'key': VWORLD_KEY,
       'service': 'address',
       'request': 'GetAddress',
-      'type': 'BOTH',
+      'type': 'PARCEL',
       'point': '${long! - 0.01},$lat',
     });
 
@@ -45,7 +45,7 @@ class SearchService {
       'key': VWORLD_KEY,
       'service': 'address',
       'request': 'GetAddress',
-      'type': 'BOTH',
+      'type': 'PARCEL',
       'point': '$long,${lat! - 0.01}',
     });
 
@@ -53,7 +53,7 @@ class SearchService {
       'key': VWORLD_KEY,
       'service': 'address',
       'request': 'GetAddress',
-      'type': 'BOTH',
+      'type': 'PARCEL',
       'point': '$long,$lat',
     });
 
@@ -69,7 +69,7 @@ class SearchService {
       AddressModel2 addressModel =
           AddressModel2.fromJson(response.data['response']);
 
-      if (response.data['status'] == 'OK') {
+      if (response.data['response']['status'] == 'OK') {
         addresses.add(addressModel);
       }
     }
