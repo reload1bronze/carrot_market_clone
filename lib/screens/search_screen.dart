@@ -17,7 +17,7 @@ class _SearchScreenState extends State<SearchScreen> {
   TextEditingController _searchController = TextEditingController();
 
   AddressModel? _addressModel;
-  List<AddressModel2> _addressModel2 = [];
+  List<AddressModel2> _addressModel2List = [];
   bool _isGettingLocation = false;
 
   @override
@@ -45,6 +45,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   BoxConstraints(minWidth: 24, minHeight: 24),
             ),
             onFieldSubmitted: (text) async {
+              _addressModel2List.clear();
               _addressModel = await SearchService().searchAddressByStr(text);
               logger.d(_addressModel);
               setState(() {});
@@ -53,6 +54,7 @@ class _SearchScreenState extends State<SearchScreen> {
           TextButton.icon(
             onPressed: () async {
               _addressModel = null;
+              _addressModel2List.clear();
               setState(() {
                 _isGettingLocation = true;
               });
@@ -86,14 +88,17 @@ class _SearchScreenState extends State<SearchScreen> {
                       lat: _locationData.latitude,
                       long: _locationData.longitude);
 
-              _addressModel2.addAll(addresses);
+              _addressModel2List.addAll(addresses);
 
               setState(() {
                 _isGettingLocation = false;
               });
             },
             icon: _isGettingLocation
-                ? CircularProgressIndicator(color: Colors.white)
+                ? SizedBox(
+                    width: 24,
+                    height: 24,
+                    child: CircularProgressIndicator(color: Colors.white))
                 : Icon(
                     Icons.location_pin,
                     color: Colors.white,
@@ -108,31 +113,54 @@ class _SearchScreenState extends State<SearchScreen> {
               backgroundColor: Theme.of(context).primaryColor,
             ),
           ),
-          Expanded(
-            child: ListView.builder(
-              padding: const EdgeInsets.symmetric(
-                vertical: 16.0,
+          if (_addressModel != null)
+            Expanded(
+              child: ListView.builder(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 16.0,
+                ),
+                itemBuilder: (context, index) {
+                  if (_addressModel == null ||
+                      _addressModel!.result == null ||
+                      _addressModel!.result!.items == null ||
+                      _addressModel!.result!.items![index].address == null) {
+                    return Container(
+                      child: Text('없어'),
+                    );
+                  }
+                  return ListTile(
+                      title: Text(
+                          _addressModel!.result!.items![index].address!.road ??
+                              ''),
+                      subtitle: Text(_addressModel!
+                              .result!.items![index].address!.parcel ??
+                          ''));
+                },
+                itemCount: _addressModel?.result?.items?.length ?? 0,
               ),
-              itemBuilder: (context, index) {
-                if (_addressModel == null ||
-                    _addressModel!.result == null ||
-                    _addressModel!.result!.items == null ||
-                    _addressModel!.result!.items![index].address == null) {
-                  return Container(
-                    child: Text('없어'),
-                  );
-                }
-                return ListTile(
-                    title: Text(
-                        _addressModel!.result!.items![index].address!.road ??
-                            ''),
-                    subtitle: Text(
-                        _addressModel!.result!.items![index].address!.parcel ??
-                            ''));
-              },
-              itemCount: _addressModel?.result?.items?.length ?? 0,
             ),
-          ),
+          if (_addressModel2List.isNotEmpty)
+            Expanded(
+              child: ListView.builder(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 16.0,
+                ),
+                itemBuilder: (context, index) {
+                  if (_addressModel2List[index].result == null ||
+                      _addressModel2List[index].result!.isEmpty) {
+                    return Container(
+                      child: Text('없어'),
+                    );
+                  }
+                  return ListTile(
+                      title:
+                          Text(_addressModel2List[index].result![0].text ?? ''),
+                      subtitle: Text(
+                          _addressModel2List[index].result![0].zipcode ?? ''));
+                },
+                itemCount: _addressModel2List.length,
+              ),
+            ),
         ],
       ),
     );
