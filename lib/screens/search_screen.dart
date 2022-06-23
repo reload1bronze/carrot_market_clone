@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../data/address_model.dart';
@@ -20,6 +21,12 @@ class _SearchScreenState extends State<SearchScreen> {
   AddressModel? _addressModel;
   List<AddressModel2> _addressModel2List = [];
   bool _isGettingLocation = false;
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -137,9 +144,14 @@ class _SearchScreenState extends State<SearchScreen> {
                         _addressModel!.result!.items![index].address!.parcel ??
                             ''),
                     onTap: () {
-                      _saveAddressOnSharedPreferences(
+                      _saveAddressAndGoToNextPage(
                           _addressModel!.result!.items![index].address!.road ??
                               '');
+                      context.read<PageController>().animateToPage(
+                            1,
+                            duration: Duration(milliseconds: 500),
+                            curve: Curves.ease,
+                          );
                     },
                   );
                 },
@@ -165,7 +177,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     subtitle: Text(
                         _addressModel2List[index].result![0].zipcode ?? ''),
                     onTap: () {
-                      _saveAddressOnSharedPreferences(
+                      _saveAddressAndGoToNextPage(
                           _addressModel2List[index].result![0].text ?? '');
                     },
                   );
@@ -176,6 +188,15 @@ class _SearchScreenState extends State<SearchScreen> {
         ],
       ),
     );
+  }
+
+  _saveAddressAndGoToNextPage(String address) async {
+    await _saveAddressOnSharedPreferences(address);
+    context.read<PageController>().animateToPage(
+          2,
+          duration: Duration(milliseconds: 500),
+          curve: Curves.ease,
+        );
   }
 
   _saveAddressOnSharedPreferences(String address) async {

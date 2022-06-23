@@ -1,5 +1,6 @@
 import 'package:carrot_market_clone/screens/signin_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'intro_screen.dart';
 import 'search_screen.dart';
@@ -11,15 +12,18 @@ class StartScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: PageView(
-        controller: _pageController,
-        // physics: NeverScrollableScrollPhysics(),
-        children: [
-          IntroScreen(_pageController),
-          SearchScreen(),
-          SigninScreen(),
-        ],
+    return Provider<PageController>.value(
+      value: _pageController,
+      child: Scaffold(
+        body: PageView(
+          controller: _pageController,
+          // physics: NeverScrollableScrollPhysics(),
+          children: [
+            IntroScreen(),
+            SearchScreen(),
+            SigninScreen(),
+          ],
+        ),
       ),
     );
   }

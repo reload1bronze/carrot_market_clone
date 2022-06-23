@@ -9,6 +9,7 @@ import 'utils/logger.dart';
 
 void main() {
   logger.v('앱 실행');
+  Provider.debugCheckInvalidValueType = null;
   runApp(const MyApp());
 }
 

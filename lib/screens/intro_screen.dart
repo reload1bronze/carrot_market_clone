@@ -1,11 +1,11 @@
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../utils/logger.dart';
 
 class IntroScreen extends StatelessWidget {
-  PageController controller;
-  IntroScreen(this.controller, {Key? key}) : super(key: key);
+  IntroScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +64,7 @@ class IntroScreen extends StatelessWidget {
                       style: Theme.of(context).textTheme.button,
                     ),
                     onPressed: () {
-                      controller.animateToPage(
+                      context.read<PageController>().animateToPage(
                         1,
                         duration: Duration(milliseconds: 500),
                         curve: Curves.ease,
