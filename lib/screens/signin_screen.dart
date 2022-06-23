@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../constants/common_size.dart';
 import '../providers/user_provider.dart';
+import '../utils/logger.dart';
 
 class SigninScreen extends StatefulWidget {
   SigninScreen({Key? key}) : super(key: key);
@@ -89,7 +91,9 @@ class _SigninScreenState extends State<SigninScreen> {
                       height: k_padding_s,
                     ),
                     TextButton(
+                      child: Text('인증문자 발송'),
                       onPressed: () {
+                        // _getAddressData();
                         bool passed = _formKey.currentState!.validate();
                         if (passed) {
                           setState(() {
@@ -97,7 +101,6 @@ class _SigninScreenState extends State<SigninScreen> {
                           });
                         }
                       },
-                      child: Text('인증문자 발송'),
                     ),
                     SizedBox(
                       height: k_padding,
@@ -165,6 +168,12 @@ class _SigninScreenState extends State<SigninScreen> {
       _verificationStatus = VerificationStatus.verificationDone;
     });
     context.read<UserProvider>().setUserAuth(true);
+  }
+
+  _getAddressData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String address = prefs.getString('address') ?? '';
+    logger.d(address);
   }
 }
 

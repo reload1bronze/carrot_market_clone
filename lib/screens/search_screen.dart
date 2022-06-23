@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../data/address_model.dart';
 import '../data/address_model2.dart';
@@ -52,6 +53,24 @@ class _SearchScreenState extends State<SearchScreen> {
             },
           ),
           TextButton.icon(
+            icon: _isGettingLocation
+                ? SizedBox(
+                    width: 24,
+                    height: 24,
+                    child: CircularProgressIndicator(color: Colors.white))
+                : Icon(
+                    Icons.location_pin,
+                    color: Colors.white,
+                    size: 20.0,
+                  ),
+            label: Text(
+              _isGettingLocation ? '위치 찾는 중...' : '현재 위치 찾기',
+              style: Theme.of(context).textTheme.button,
+            ),
+            style: TextButton.styleFrom(
+              minimumSize: Size(10, 36),
+              backgroundColor: Theme.of(context).primaryColor,
+            ),
             onPressed: () async {
               _addressModel = null;
               _addressModel2List.clear();
@@ -94,24 +113,6 @@ class _SearchScreenState extends State<SearchScreen> {
                 _isGettingLocation = false;
               });
             },
-            icon: _isGettingLocation
-                ? SizedBox(
-                    width: 24,
-                    height: 24,
-                    child: CircularProgressIndicator(color: Colors.white))
-                : Icon(
-                    Icons.location_pin,
-                    color: Colors.white,
-                    size: 20.0,
-                  ),
-            label: Text(
-              _isGettingLocation ? '위치 찾는 중...' : '현재 위치 찾기',
-              style: Theme.of(context).textTheme.button,
-            ),
-            style: TextButton.styleFrom(
-              minimumSize: Size(10, 36),
-              backgroundColor: Theme.of(context).primaryColor,
-            ),
           ),
           if (_addressModel != null)
             Expanded(
@@ -129,12 +130,18 @@ class _SearchScreenState extends State<SearchScreen> {
                     );
                   }
                   return ListTile(
-                      title: Text(
+                    title: Text(
+                        _addressModel!.result!.items![index].address!.road ??
+                            ''),
+                    subtitle: Text(
+                        _addressModel!.result!.items![index].address!.parcel ??
+                            ''),
+                    onTap: () {
+                      _saveAddressOnSharedPreferences(
                           _addressModel!.result!.items![index].address!.road ??
-                              ''),
-                      subtitle: Text(_addressModel!
-                              .result!.items![index].address!.parcel ??
-                          ''));
+                              '');
+                    },
+                  );
                 },
                 itemCount: _addressModel?.result?.items?.length ?? 0,
               ),
@@ -153,10 +160,15 @@ class _SearchScreenState extends State<SearchScreen> {
                     );
                   }
                   return ListTile(
-                      title:
-                          Text(_addressModel2List[index].result![0].text ?? ''),
-                      subtitle: Text(
-                          _addressModel2List[index].result![0].zipcode ?? ''));
+                    title:
+                        Text(_addressModel2List[index].result![0].text ?? ''),
+                    subtitle: Text(
+                        _addressModel2List[index].result![0].zipcode ?? ''),
+                    onTap: () {
+                      _saveAddressOnSharedPreferences(
+                          _addressModel2List[index].result![0].text ?? '');
+                    },
+                  );
                 },
                 itemCount: _addressModel2List.length,
               ),
@@ -164,5 +176,10 @@ class _SearchScreenState extends State<SearchScreen> {
         ],
       ),
     );
+  }
+
+  _saveAddressOnSharedPreferences(String address) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('address', address);
   }
 }
