@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "528903571082",
+    "project_id": "potato-record",
+    "storage_bucket": "potato-record.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:528903571082:android:121b9135e9c99d0f740f73",
+        "android_client_info": {
+          "package_name": "com.example.carrot_market_clone"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "528903571082-3ta07hrj3vhlfu1q3h5qkg136cuqp2fk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.carrot_market_clone",
+            "certificate_hash": "7bedbdac419c540d256910e0478b4fb4e39ac972"
+          }
+        },
+        {
+          "client_id": "528903571082-5nketc2hpe07dmio1fhhpjsvbdj9tquc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4mxiDmEUCfFEF_oHOnCNExXc9zzJQ-ZE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "528903571082-5nketc2hpe07dmio1fhhpjsvbdj9tquc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
