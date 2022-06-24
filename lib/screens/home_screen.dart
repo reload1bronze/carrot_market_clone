@@ -4,8 +4,15 @@ import 'package:provider/provider.dart';
 
 import '../providers/user_provider.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  int _bottomeSelectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +46,43 @@ class HomeScreen extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(items: []),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _bottomeSelectedIndex,
+        type: BottomNavigationBarType.fixed,
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
+        items: [
+          BottomNavigationBarItem(
+            icon: ImageIcon(AssetImage(_bottomeSelectedIndex == 0
+                ? 'assets/images/home_selected.png'
+                : 'assets/images/home.png')),
+            label: '홈',
+          ),
+          BottomNavigationBarItem(
+            icon: ImageIcon(AssetImage(_bottomeSelectedIndex == 1
+                ? 'assets/images/user_selected.png'
+                : 'assets/images/user.png')),
+            label: '피드',
+          ),
+          BottomNavigationBarItem(
+            icon: ImageIcon(AssetImage(_bottomeSelectedIndex == 2
+                ? 'assets/images/phone_selected.png'
+                : 'assets/images/phone.png')),
+            label: '얍',
+          ),
+          BottomNavigationBarItem(
+            icon: ImageIcon(AssetImage(_bottomeSelectedIndex == 3
+                ? 'assets/images/phone_selected.png'
+                : 'assets/images/phone.png')),
+            label: '얍2',
+          ),
+        ],
+        onTap: (index) {
+          setState(() {
+            _bottomeSelectedIndex = index;
+          });
+        },
+      ),
     );
   }
 }

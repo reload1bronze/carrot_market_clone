@@ -80,6 +80,10 @@ class MyHomePage extends StatelessWidget {
               color: Colors.black87,
             ),
           ),
+          bottomNavigationBarTheme: BottomNavigationBarThemeData(
+            selectedItemColor: Colors.black87,
+            unselectedItemColor: Colors.black26,
+          ),
         ),
         initialRoute: '/start',
         routes: {
