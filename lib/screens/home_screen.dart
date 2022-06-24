@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/user_provider.dart';
+import 'home/items_page.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -42,9 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
       body: IndexedStack(
         index: _bottomeSelectedIndex,
         children: [
-          Container(
-            color: Colors.accents[0],
-          ),
+          ItemPage(),
           Container(
             color: Colors.accents[1],
           ),

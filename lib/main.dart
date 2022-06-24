@@ -62,6 +62,14 @@ class MyHomePage extends StatelessWidget {
           textTheme: TextTheme(
             headline3: TextStyle(fontFamily: 'DoHyeon'),
             button: TextStyle(color: Colors.white),
+            subtitle1: TextStyle(
+              color: Colors.black87,
+              fontSize: 15,
+            ),
+            subtitle2: TextStyle(
+              color: Colors.grey,
+              fontSize: 12,
+            ),
           ),
           textButtonTheme: TextButtonThemeData(
             style: TextButton.styleFrom(
