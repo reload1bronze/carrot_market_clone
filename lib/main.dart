@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -10,20 +11,25 @@ import 'utils/logger.dart';
 void main() {
   logger.v('앱 실행');
   Provider.debugCheckInvalidValueType = null;
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  
+  final Future<FirebaseApp> _initiralization = Firebase.initializeApp();
+  
+  @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: Future.delayed(
-          const Duration(
-            seconds: 1,
-          ),
-          () => 100),
+      future: _initiralization,
       builder: (context, snapshot) {
         return AnimatedSwitcher(
           duration: const Duration(milliseconds: 300),
@@ -37,7 +43,7 @@ class MyApp extends StatelessWidget {
     if (snapshot.hasError) {
       return const Text('Error occur');
     }
-    if (snapshot.hasData) {
+    if (snapshot.connectionState == ConnectionState.done) {
       return const MyHomePage();
     }
     return const SplashScreen();
