@@ -39,12 +39,22 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
-      body: Center(
-        child: Column(
-          children: [
-            ExtendedImage.asset('assets/images/carrot.jpg'),
-          ],
-        ),
+      body: IndexedStack(
+        index: _bottomeSelectedIndex,
+        children: [
+          Container(
+            color: Colors.accents[0],
+          ),
+          Container(
+            color: Colors.accents[1],
+          ),
+          Container(
+            color: Colors.accents[2],
+          ),
+          Container(
+            color: Colors.accents[3],
+          ),
+        ],
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _bottomeSelectedIndex,
