@@ -11,13 +11,24 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Home Screen'),
+        title: Text(
+          '권선구',
+          style: Theme.of(context).appBarTheme.titleTextStyle,
+        ),
         actions: [
           IconButton(
             icon: Icon(Icons.logout),
             onPressed: () {
               context.read<UserProvider>().setUserAuth(false);
             },
+          ),
+          IconButton(
+            icon: Icon(Icons.search),
+            onPressed: () {},
+          ),
+          IconButton(
+            icon: Icon(Icons.menu),
+            onPressed: () {},
           ),
         ],
       ),
@@ -28,6 +39,7 @@ class HomeScreen extends StatelessWidget {
           ],
         ),
       ),
+      bottomNavigationBar: BottomNavigationBar(items: []),
     );
   }
 }
