@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
 import 'package:provider/provider.dart';
@@ -92,13 +93,42 @@ class _SigninScreenState extends State<SigninScreen> {
                     ),
                     TextButton(
                       child: Text('인증문자 발송'),
-                      onPressed: () {
+                      onPressed: () async {
                         // _getAddressData();
                         bool passed = _formKey.currentState!.validate();
                         if (passed) {
-                          setState(() {
-                            _verificationStatus = VerificationStatus.codeSent;
-                          });
+                          FirebaseAuth auth = FirebaseAuth.instance;
+
+                          await auth.verifyPhoneNumber(
+                            phoneNumber: '+821086484728',
+                            verificationCompleted:
+                                (PhoneAuthCredential credential) async {
+                              await auth.signInWithCredential(credential);
+                            },
+                            codeAutoRetrievalTimeout:
+                                (String verificationId) {},
+                            codeSent: (String verificationId,
+                                int? forceResendingToken) async {
+                              // setState(() {
+                              //   _verificationStatus =
+                              //       VerificationStatus.codeSent;
+                              // });
+                              String smsCode = '123456';
+                              PhoneAuthCredential credential =
+                                  PhoneAuthProvider.credential(
+                                      verificationId: verificationId,
+                                      smsCode: smsCode);
+
+                              await auth.signInWithCredential(credential);
+                            },
+                            verificationFailed: (FirebaseAuthException error) {
+                              logger.e(error.message);
+
+                              setState(() {
+                                _verificationStatus = VerificationStatus.none;
+                              });
+                            },
+                          );
                         }
                       },
                     ),
@@ -167,7 +197,7 @@ class _SigninScreenState extends State<SigninScreen> {
     setState(() {
       _verificationStatus = VerificationStatus.verificationDone;
     });
-    context.read<UserProvider>().setUserAuth(true);
+    // context.read<UserProvider>().setUserAuth(true);
   }
 
   _getAddressData() async {
